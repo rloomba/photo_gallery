@@ -11,7 +11,7 @@
       <%  photos.forEach(function(element){ %>
         <div><%= element.name %></div>
         <div><%= element.description %></div>
-        <div><%= element.location %></div>
+        <img src=<%=element.thumbnail_location%>>
         <%})%>
     </div>
   </body>
