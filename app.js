@@ -58,7 +58,7 @@ app.get('/photo/new', function(req, res){
 // route to post new photo data to server
 app.post('/photo/new', function(req,res){
   var temp_path = req.files.image.path;
-  var target_path =  __dirname + '/public/storage/' + req.files.image.name;
+  var target_path =  __dirname + '/public/storage/full/' + req.files.image.name;
   var img_path = '/storage/full/' + req.files.image.name;
   var thumbnail_location = __dirname + '/public/storage/thumbnail/' + req.files.image.name;
   var thumbnail_path = '/storage/thumbnail/' + req.files.image.name;
@@ -98,8 +98,7 @@ app.get('/photo/:id', function(req,res){
       {locals: {
         name: photo.name,
         description: photo.description,
-        full_location: photo.full_location,
-        thumbnail_location: photo.thumbnail_location
+        full_location: photo.full_location
       }
     });
   });
