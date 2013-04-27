@@ -4,11 +4,23 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel='stylesheet' href='/stylesheets/normalize.css'/>
     <link rel='stylesheet' href='/stylesheets/foundation.min.css'/>
-    <script src='foundation.min.js'></script>
+    <script src='/javascripts/foundation.min.js'></script>
+    <script src="/javascripts/share.js"></script>
+    <script src="/javascripts/parser.js"></script>
   </head>
   <body>
     <h1><%= name %></h1>
     <h2><%= description %></h2>
     <img src=<%= full_location %>>
+    <a data-service="twitter" href="#">twitter</a>
+    <a data-service="facebook" href="#">facebook</a>
   </body>
+  <script>
+        var list = document.getElementsByTagName('a');
+        var url = document.location.href
+        Share.init(list, {
+        title: 'share it',
+        url: url
+        });
+    </script>
 </html>

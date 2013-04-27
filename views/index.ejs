@@ -5,20 +5,26 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel='stylesheet' href='/stylesheets/normalize.css'/>
     <link rel='stylesheet' href='/stylesheets/foundation.min.css'/>
-    <script src='foundation.min.js'></script>
+    <script src='/javascripts/foundation.min.js'></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <div><a href="/photo/new">Upload a photo!</a>
-    <div>
-      <ul class="small-block-grid-3">
-        <%  photos.forEach(function(element){ %>
-          <li><a href=<%='/photo/' + element._id.toHexString() %>><div>Name: <%= element.name %></div></a>
-          <div>Description: <%= element.description %></div>
-          <img src=<%=element.thumbnail_location%>>
-          <%})%></li>
-      </ul>
+    <div class="row">
+      <div class="small-12 columns">
+        <h1><%= title %></h1>
+        <p>Welcome to <%= title %></p>
+        <a href="/photo/new">Upload a photo!</a>
+        <div>
+          <ul class="small-block-grid-3">
+            <%  photos.forEach(function(element){ %>
+              <li>
+                <a href=<%='/photo/' + element._id.toHexString() %>><img src=<%=element.thumbnail_location%>></a>
+                <div>Name: <%= element.name %></div>
+                <div>Description: <%= element.description %></div>
+                <%})%>
+              </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </body>
 </html>

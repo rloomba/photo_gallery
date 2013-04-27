@@ -67,7 +67,7 @@ app.post('/photo/new', function(req,res){
 
   fs.rename(temp_path, target_path, function(err){
     if (err) throw err;
-
+    res.redirect('/');
     // resize image and save thumbnail
     im.resize({
       srcPath: target_path,
@@ -75,18 +75,18 @@ app.post('/photo/new', function(req,res){
       width: 256
     }, function(err, stdout, stderr){
       if (err) throw err;
-        console.log('resized image');
-    });
-
-    fs.unlink(temp_path, function(){
-      if (err) throw err;
+      console.log('resized image');
+      fs.unlink(temp_path, function(){
+        if (err) throw err;
+        // save data to database
         photoProvider.save({
         name: req.param('name'),
         description: req.param('description'),
         full_location: img_path,
         thumbnail_location: thumbnail_path
-      }, function(error, docs){
-        res.redirect('/');
+        }, function(error, docs){
+          console.log("saved to database");
+        });
       });
     });
   });

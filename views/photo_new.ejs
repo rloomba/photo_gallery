@@ -1,19 +1,39 @@
+<html>
 <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css'/>
-    <link rel='stylesheet' href='/stylesheets/normalize.css'/>
-    <link rel='stylesheet' href='/stylesheets/foundation.min.css'/>
-    <script src='foundation.min.js'></script>
-  </head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel='stylesheet' href='/stylesheets/normalize.css'/>
+  <link rel='stylesheet' href='/stylesheets/foundation.min.css'/>
+  <script src='foundation.min.js'></script>
+</head>
 
 <h1><%= title %></h1>
 
-<form method="post" enctype="multipart/form-data">
-  <label for="name">Name</label>
-  <input type="text", name="name", id="editPhotoName"/>
-  <label for="description">Description</label>
-  <textarea name="description", rows=20 id="editPhotoDescription"></textarea>
-  <label for="image">Image</label>
-  <input type="file" name="image"/>
-  <input type="submit", value="Upload"/>
-</form>
+  <form method="post" enctype="multipart/form-data">
+    <fieldset>
+      <div class="row">
+        <div class="large-12 columns">
+          <label for="name">Name</label>
+          <input type="text", name="name", id="editPhotoName"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          <label for="description">Description</label>
+          <textarea name="description", rows=20 id="editPhotoDescription"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-4 columns">
+          <label for="image">Image</label>
+          <input type="file" name="image"/>
+        </div>
+        <div class="large-4 columns">
+        </div>
+        <div class="large-4 columns">
+          <input type="submit", value="Upload"/>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</html>
