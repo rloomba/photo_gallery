@@ -34,7 +34,9 @@ if ('development' == app.get('env')) {
 }
 
 // # sets up db inside here
-var dataBaseProvider = new DataBaseProvider('localhost', 27017);
+var mongoURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL
+|| '127.0.0.1';
+var dataBaseProvider = new DataBaseProvider(mongoURI, 27017);
 
 // main index get route
 app.get('/', function(req, res){
