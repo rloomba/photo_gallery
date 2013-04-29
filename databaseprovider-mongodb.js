@@ -22,7 +22,7 @@ DataBaseProvider = function(host, port){
     if(err) console.log(error);
     else console.log("connected to mongodb");
   });
-});
+};
 
 DataBaseProvider.prototype.getCollection = function(callback){
   this.db.collection('photos', function(error, photo_collection){
