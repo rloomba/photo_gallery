@@ -7,16 +7,26 @@
     <script src='/javascripts/foundation.min.js'></script>
     <script src="/javascripts/share.js"></script>
     <script src="/javascripts/parser.js"></script>
+    <script src="https://a.alipayobjects.com/static/arale/seajs/1.2.0/sea.js"></script>
   </head>
   <body>
-    <h1><%= name %></h1>
-    <h2><%= description %></h2>
-    <img src=<%= full_location %>>
-    <a data-service="twitter" href="#">twitter</a>
-    <a data-service="facebook" href="#">facebook</a>
+    <div class="row">
+      <div class="large-12 columns text-center">
+        <a href="/"><h1>Photo Gallery</h1></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns text-center">
+        <h2><%= name %></h1>
+        <img src=<%= full_location %>><br><br>
+        <h3><%= description %></h2>
+        <a class="share" data-service="twitter" href="#"><img src="/images/twitter.gif"></a>
+        <a class="share" data-service="facebook" href="#"><img src="/images/facebook.gif"></a>
+      </div>
+    </div>
   </body>
   <script>
-        var list = document.getElementsByTagName('a');
+        var list = document.getElementsByClassName('share');
         var url = document.location.href
         Share.init(list, {
         title: 'share it',

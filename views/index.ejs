@@ -9,21 +9,26 @@
   </head>
   <body>
     <div class="row">
+      <div class="large-12 columns">
+        <a href="/" class="text-center"><h1>Photo Gallery</h1></a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <a href="/photo/new" class="small button">Upload a photo!</a>
+      </div>
+    </div>
+    <div class="row">
       <div class="small-12 columns">
-        <h1><%= title %></h1>
-        <p>Welcome to <%= title %></p>
-        <a href="/photo/new">Upload a photo!</a>
-        <div>
-          <ul class="small-block-grid-3">
-            <%  photos.forEach(function(element){ %>
-              <li>
-                <a href=<%='/photo/' + element._id.toHexString() %>><img src=<%=element.thumbnail_location%>></a>
-                <div>Name: <%= element.name %></div>
-                <div>Description: <%= element.description %></div>
-                <%})%>
+        <ul class="small-block-grid-3">
+          <%  photos.forEach(function(element){ %>
+            <li>
+              <a href=<%='/photo/' + element._id.toHexString() %>><img src=<%=element.thumbnail_location%>></a>
+              <div>Name: <%= element.name %></div>
+              <div>Description: <%= element.description %></div>
               </li>
+          <%})%>
           </ul>
-        </div>
       </div>
     </div>
   </body>

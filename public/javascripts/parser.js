@@ -1,5 +1,6 @@
 ;(function(global) {
     var services = {
+
         'facebook': 'http://www.facebook.com/sharer.php?t={{title}}&u={{url}}',
         'twitter': 'https://twitter.com/intent/tweet?text={{title}}&url={{url}}'
     };

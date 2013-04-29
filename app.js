@@ -4,14 +4,13 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , fs = require('fs')
   , im = require('imagemagick')
   , format = require('util').format
-  , PhotoProvider = require('./photoprovider-mongodb').PhotoProvider;
+  , DataBaseProvider = require('./databaseprovider-mongodb').DataBaseProvider
+  , AM = require('./account-manager');
 
 var app = module.exports = express();
 
@@ -24,8 +23,8 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.limit('5mb'));
 app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -34,11 +33,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var photoProvider = new PhotoProvider('localhost', 27017);
+// # sets up db inside here
+var dataBaseProvider = new DataBaseProvider('localhost', 27017);
 
-// main index get rout
+// main index get route
 app.get('/', function(req, res){
-  photoProvider.findAll(function(error, photos){
+  dataBaseProvider.findAll(function(error, photos){
     res.render('index.ejs', {locals: {
       title: "Photos",
       photos: photos
@@ -72,14 +72,15 @@ app.post('/photo/new', function(req,res){
     im.resize({
       srcPath: target_path,
       dstPath: thumbnail_location,
-      width: 256
+      width: 256,
+      height: 256
     }, function(err, stdout, stderr){
       if (err) throw err;
       console.log('resized image');
       fs.unlink(temp_path, function(){
         if (err) throw err;
         // save data to database
-        photoProvider.save({
+        dataBaseProvider.savePhoto({
         name: req.param('name'),
         description: req.param('description'),
         full_location: img_path,
@@ -93,7 +94,7 @@ app.post('/photo/new', function(req,res){
 });
 
 app.get('/photo/:id', function(req,res){
-  photoProvider.findById(req.params.id, function(error, photo){
+  dataBaseProvider.findById(req.params.id, function(error, photo){
     res.render('photo_show.ejs',
       {locals: {
         name: photo.name,

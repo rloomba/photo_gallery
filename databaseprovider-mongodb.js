@@ -4,7 +4,7 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
-PhotoProvider = function(host, port){
+DataBaseProvider = function(host, port){
   this.db = new Db('node-mongo-photo-gallery', new Server(host, port, {auto_reconnect: true, safe: false}, {}));
   this.db.open(function(error, db){
     if(error){
@@ -15,14 +15,14 @@ PhotoProvider = function(host, port){
   });
 };
 
-PhotoProvider.prototype.getCollection = function(callback){
+DataBaseProvider.prototype.getCollection = function(callback){
   this.db.collection('photos', function(error, photo_collection){
     if(error) callback(error);
     else callback(null, photo_collection);
   });
 };
 
-PhotoProvider.prototype.findAll = function(callback){
+DataBaseProvider.prototype.findAll = function(callback){
   this.getCollection(function(error, photo_collection){
     if(error) callback(error);
     else {
@@ -34,7 +34,7 @@ PhotoProvider.prototype.findAll = function(callback){
   });
 };
 
-PhotoProvider.prototype.findById = function(id,callback){
+DataBaseProvider.prototype.findById = function(id,callback){
   this.getCollection(function(error, photo_collection){
     if(error) callback(error);
     else{
@@ -46,7 +46,7 @@ PhotoProvider.prototype.findById = function(id,callback){
   });
 };
 
-PhotoProvider.prototype.save = function(photos, callback){
+DataBaseProvider.prototype.savePhoto = function(photos, callback){
   this.getCollection(function(error, photo_collection){
     if(error) callback(error);
     else{
@@ -64,5 +64,15 @@ PhotoProvider.prototype.save = function(photos, callback){
   });
 };
 
+DataBaseProvider.prototype.autoLogin = function(user, pass, callback){
+  accounts.findOne({user:user}, function(e, o) {
+    if (o){
+      o.pass == pass ? callback(o) : callback(null);
+    } else{
+      callback(null);
+    }
+  });
+}
 
-exports.PhotoProvider = PhotoProvider;
+
+exports.DataBaseProvider = DataBaseProvider;
