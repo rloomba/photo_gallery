@@ -3,17 +3,26 @@ var Connection = require('mongodb').Connection;
 var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
+var mongo = require('mongodb');
+
+// DataBaseProvider = function(host, port){
+//   this.db = new Db('node-mongo-photo-gallery', new Server(host, port, {auto_reconnect: true, safe: false}, {}));
+//   this.db.open(function(error, db){
+//     if(error){
+//       console.log(error);
+//     } else{
+//       console.log("connected to mongodb");
+//     }
+//   });
+// };
 
 DataBaseProvider = function(host, port){
-  this.db = new Db('node-mongo-photo-gallery', new Server(host, port, {auto_reconnect: true, safe: false}, {}));
-  this.db.open(function(error, db){
-    if(error){
-      console.log(error);
-    } else{
-      console.log("connected to mongodb");
-    }
+  mongo.connect(host, {}, function(err, db){
+    this.db = db;
+    if(err) console.log(error);
+    else console.log("connected to mongodb");
   });
-};
+});
 
 DataBaseProvider.prototype.getCollection = function(callback){
   this.db.collection('photos', function(error, photo_collection){
